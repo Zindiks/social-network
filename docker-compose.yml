@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" # Map API service port (adjust as needed)
+    environment:
+      - JWT_KEY=${JWT_KEY}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000" # Map client service port (adjust as needed)
+    environment:
+      - JWT_KEY=${JWT_KEY}
+      - PUBLIC_LOCAL_PATH=http://localhost:8080
+
